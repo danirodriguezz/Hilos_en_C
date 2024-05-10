@@ -602,7 +602,7 @@ int main() {
 
 ## División equilibrada de los vectores entre los hilos
 
-En el código tenemos una parte de la funcion que nos divide la parte del vector a la que se va a encargar de realizar el calculo cada hilo.
+En el código tenemos una parte de la función que nos divide la parte del vector a la que se va a encargar de realizar el cálculo cada hilo.
 
 ```{c, eval=FALSE}
 void *dot_product(void *threadarg) {
@@ -628,7 +628,7 @@ void *dot_product(void *threadarg) {
 
 Esta es la función que ejecuta cada hilo y vemos que calcula start y el end dependiendo del id del hilo. Por ejemplo:
 
-Si tenemos ejecutando el hilo 1 de 4 que tenemos, y tenemos un vector de tamaño 1000 el calculo de start sera :
+Si tenemos ejecutando el hilo 1 de 4 que tenemos, y tenemos un vector de tamaño 1000 el cálculo de start sera :
 
 $$start=1*1000/4=250$$
 
@@ -636,7 +636,7 @@ Y el end será:
 
 $$end=2*1000/4=500$$
 
-Entonces como vemos se divide el tamaño del vector en funcion del el hilo que se este ejecutando.
+Entonces como vemos se divide el tamaño del vector en función del el hilo que se este ejecutando.
 
 
 ## Opciones linea de comandos
