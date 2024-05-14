@@ -66,9 +66,6 @@ void *dot_product2(void *threadarg) {
     pthread_exit(NULL);
 }
 
-void parametros() {
-    
-}
 
 int main(int argc, char *argv[]) {
     pthread_mutex_init(&cerrojo, NULL);
