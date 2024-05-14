@@ -30,20 +30,20 @@ void *dot_product(void *threadarg) {
     int start = (my_data->thread_id * my_data->size) / my_data->num_hilos;
     int end = (my_data->thread_id + 1) * my_data->size / my_data->num_hilos;
 
-    pthread_mutex_lock(&cerrojo);
-
     while (my_data->thread_id != turno)
     {
         pthread_cond_wait(&turno_cond, &cerrojo);
     }
 
     for (int i = start; i < end; i++) {
+        // Declaramos la sección crítica
+        pthread_mutex_lock(&cerrojo);
         R += (int) (my_data->vector1[i] * my_data->vector2[i]);
+        pthread_mutex_unlock(&cerrojo);
+        // Terminamos la sección crítica
     }
-
     turno = (turno + 1) % my_data->num_hilos;  // Cambiar al siguiente turno
     pthread_cond_broadcast(&turno_cond);
-    pthread_mutex_unlock(&cerrojo);
     pthread_exit(NULL);
 }
 
@@ -54,13 +54,15 @@ void *dot_product2(void *threadarg) {
     int start = (my_data->thread_id * my_data->size) / my_data->num_hilos;
     int end = (my_data->thread_id + 1) * my_data->size / my_data->num_hilos;
 
-    pthread_mutex_lock(&cerrojo);
 
     for (int i = start; i < end; i++) {
+        // Declaramos la sección crítica
+        pthread_mutex_lock(&cerrojo);
         R += (int) (my_data->vector1[i] * my_data->vector2[i]);
+        pthread_mutex_unlock(&cerrojo);
+        // Terminamos la sección crítica
     }
 
-    pthread_mutex_unlock(&cerrojo);
     pthread_exit(NULL);
 }
 
