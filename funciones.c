@@ -60,14 +60,14 @@ void *dot_product2(void *threadarg) {
     my_data = (struct thread_data *) threadarg;
     int start = (my_data->thread_id * my_data->size) / my_data->num_hilos;
     int end = (my_data->thread_id + 1) * my_data->size / my_data->num_hilos;
-    // Declaramos la zona crítica
-    pthread_mutex_lock(&cerrojo);
     // Realizamos el cálculo
     for (int i = start; i < end; i++) {
+        // Declaramos la zona crítica
+        pthread_mutex_lock(&cerrojo);
         R += (int) (my_data->vector1[i] * my_data->vector2[i]);
+        // Terminamos la zona crítica
+        pthread_mutex_unlock(&cerrojo);
     }
-    // Terminamos la zona crítica
-    pthread_mutex_unlock(&cerrojo);
     pthread_exit(NULL);
 }
 
